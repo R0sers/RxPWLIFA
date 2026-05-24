@@ -41,8 +41,9 @@ class KRSController extends Controller
             public function store(Request $request)
         {
             $validated = $request->validate([
-                'npm'  => 'required|numeric',  
-                'nama' => 'required',
+                'id' => 'required|numeric|unique:krs',
+                'npm'  => 'required|numeric|exists:mahasiswa,npm',  
+                'kode_matakuliah' => 'required',
             ]);
 
             KRS::create($validated);
@@ -75,9 +76,8 @@ class KRSController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            "id" => "required|numeric|unique:krs,id," . $id,
             'npm'  => 'required|numeric',
-            'nama' => 'required',
+            'kode_matakuliah' => 'required',
         ]);
 
         KRS::where('id', $id)->update($validated);

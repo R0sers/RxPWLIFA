@@ -57,7 +57,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+            {{ $dataMahasiswa->links() }}
         </div>
     </div>
 </div>

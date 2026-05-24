@@ -19,7 +19,7 @@ class JadwalSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             DB::table('jadwal')->insert([
                 'kode_matakuliah' => 'MK' . str_pad($faker->numberBetween(1,7), 3, '0', STR_PAD_LEFT),
-                'nidn' => $faker->numberBetween(1,10),
+                'nidn' => $faker->numberBetween(210903, 210912),
                 'hari' => $faker->randomElement(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']),
                 'kelas' => $faker->randomElement(['A', 'B', 'C' , 'D' , 'E']),
                 'created_at' => now(),

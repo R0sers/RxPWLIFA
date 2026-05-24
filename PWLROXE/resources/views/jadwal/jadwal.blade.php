@@ -13,7 +13,7 @@
         @endif
         <div class="card p-3">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="{{ route('form-matriks') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                <a href="{{ route('form-jadwal') }}" class="btn btn-primary btn-sm">Tambah Data</a>
 
                 <form class="d-flex align-items-center gap-2">
                     <div class="input-group input-group-sm" width="250px">
@@ -27,6 +27,7 @@
             <table class="table table-bordered">
                 <thead class="table-light">
                     <tr>
+                        <th>NO</th>
                         <th>ID</th>
                         <th>Kode Matakuliah</th>
                         <th>NIDN</th>
@@ -39,18 +40,19 @@
                     @foreach ($dataJadwal as $jadwal)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $jadwal->id }}</td>
                         <td>{{ $jadwal->kode_matakuliah }}</td>
                         <td>{{ $jadwal->nidn }}</td>
                         <td>{{ $jadwal->kelas }}</td>
                         <td>{{ $jadwal->hari }}</td>
                         <td>
-                            <form action="{{ route('matriks.destroy', $jadwal->id) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
                             </form>
-                            <a href="{{ route('form-edit-matriks', $jadwal->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>Edit</a>
-                            <a href="{{ route('detail-matriks', ['id' => $jadwal->id]) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('form-edit-jadwal', $jadwal->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>Edit</a>
+                            <a href="{{ route('detail-jadwal', ['id' => $jadwal->id]) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                                 Detail
                             </a>

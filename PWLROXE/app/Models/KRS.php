@@ -11,10 +11,8 @@ use Illuminate\Database\Eloquent\Model;
     
     protected $primaryKey = 'id';
     
-    protected $fillable = [
-        'id',
-        'npm',   
-        'nama'
+    protected $guarded = [
+        'created_at', 'updated_at'
     ];
 
 

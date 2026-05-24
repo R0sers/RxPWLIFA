@@ -19,7 +19,7 @@ class MahasiswaSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             DB::table('mahasiswa')->insert([
                 'npm' => '5520124' . str_pad($i, 3, '0', STR_PAD_LEFT),
-                'nidn' => $faker->numberBetween(1,10),
+                'nidn' => $faker->numberBetween(210903, 210912),
                 'nama' => $faker->name(),
                 'created_at' => now(),
                 'updated_at' => now(),

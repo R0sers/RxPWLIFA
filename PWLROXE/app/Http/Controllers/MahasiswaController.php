@@ -14,7 +14,7 @@ class MahasiswaController extends Controller
     public function index()
     {
 
-        $dataMahasiswa = Mahasiswa::all();
+      
         $dataMahasiswa = Mahasiswa::with(['dosen'])
         ->when(request('search'), function ($query, $search) {
             return $query->where('npm', 'like', "%{$search}%")
@@ -25,7 +25,7 @@ class MahasiswaController extends Controller
                         });
         })
         ->orderBy('npm', 'asc')
-        ->paginate(5)
+        ->paginate(25)
         ->withQueryString();
 
         return view('mahasiswa.mahasiswa', compact('dataMahasiswa'));

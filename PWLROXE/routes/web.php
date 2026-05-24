@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MatriksController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\KRSController;
@@ -46,14 +46,6 @@ Route::get('/krs/{id}/edit', [KRSController::class, 'edit' ])->name('form-edit-k
 Route::delete('/krs/{id}', [KRSController::class, 'destroy'])->name('krs.destroy');
 Route::get('/show/{id}/detail-krs',[KRSController::class, 'show'])->name('detail-krs');
 
-Route::get('/matriks', [MatriksController::class, 'index' ])->name('matriks'); 
-Route::get('/form-matriks', [MatriksController::class, 'create' ])->name('form-matriks'); 
-Route::put('/matriks/{id}', [MatriksController::class, 'update' ])->name('matriksupdate'); 
-Route::post('/matriks', [MatriksController::class, 'store' ])->name('matriksstore'); 
-Route::get('/matriks/{id}/edit', [MatriksController::class, 'edit' ])->name('form-edit-matriks'); 
-Route::delete('/matriks/{id}', [MatriksController::class, 'destroy'])->name('matriks.destroy');
-Route::get('/show/{id}/detail-matriks',[MatriksController::class, 'show'])->name('detail-matriks');
-
 Route::get('/matkul', [MataKuliahController::class, 'index' ])->name('matkul'); 
 Route::get('/form-matkul', [MataKuliahController::class, 'create' ])->name('form-matkul'); 
 Route::put('/matkul/{id}', [MataKuliahController::class, 'update' ])->name('matkulupdate'); 
@@ -61,3 +53,11 @@ Route::post('/matkul', [MataKuliahController::class, 'store' ])->name('matkulsto
 Route::get('/matkul/{id}/edit', [MataKuliahController::class, 'edit' ])->name('form-edit-matkul'); 
 Route::delete('/matkul/{id}', [MataKuliahController::class, 'destroy'])->name('matkul.destroy');
 Route::get('/show/{id}/detail-matkul',[MataKuliahController::class, 'show'])->name('detail-matkul');
+
+Route::get('/jadwal', [JadwalController::class, 'index' ])->name('jadwal'); 
+Route::get('/form-jadwal', [JadwalController::class, 'create' ])->name('form-jadwal'); 
+Route::put('/jadwal/{id}', [JadwalController::class, 'update' ])->name('jadwalupdate'); 
+Route::post('/jadwal', [JadwalController::class, 'store' ])->name('jadwalstore'); 
+Route::get('/jadwal/{id}/edit', [JadwalController::class, 'edit' ])->name('form-edit-jadwal'); 
+Route::delete('/jadwal/{id}', [JadwalController::class, 'destroy'])->name('jadwal.destroy');
+Route::get('/show/{id}/detail-jadwal',[JadwalController::class, 'show'])->name('detail-jadwal');

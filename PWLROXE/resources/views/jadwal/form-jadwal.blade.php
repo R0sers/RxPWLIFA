@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container mt-3">
-        <h1>Tambah data Mahasiswa</h1>
+        <h1>Tambah data Jadwal</h1>
         <div class="card">
-            <div class="card-header">Tambah Mahasiswa</div>
+            <div class="card-header">Tambah Jadwal</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('mahasiswastore') }}">
+                <form method="POST" action="{{ route('jadwalstore') }}">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">ID</label>
