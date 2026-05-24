@@ -13,4 +13,9 @@ class Dosen extends Model
     
 
     protected $guarded = ['created_at', 'updated_at'];
+
+    public function mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class, 'nidn', 'nidn');
+    }
 }

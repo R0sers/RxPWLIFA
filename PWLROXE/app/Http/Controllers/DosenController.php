@@ -6,18 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Dosen;
 
+
 class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $dataDosen = Dosen::all();
+        public function index(Request $request)
+        {
+            $search = $request->search;
 
-        return view('dosen.dosen', compact('dataDosen'));
-        
-    }
+            $dataDosen = Dosen::when($search, function ($query, $search) {
+                    return $query->where('nidn', 'like', "%{$search}%")
+                                ->orWhere('nama', 'like', "%{$search}%");
+                })
+                ->orderBy('nidn', 'asc')
+                ->paginate(5)
+                ->withQueryString();
+
+            return view('dosen.dosen', compact('dataDosen'));
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -34,11 +42,12 @@ class DosenController extends Controller
     {
           // dd($request->nidn);
         $validated = $request->validate([
+            'nidn' => 'required|unique:dosen,nidn',
             'nama' => 'required',
         ]);
         // $validated['nidn'] = 1;
         Dosen::create($validated);
-        return redirect()->route('dosen')->with('add', 'Data berhasil ditambah');
+        return redirect()->route('dosen')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -75,7 +84,7 @@ class DosenController extends Controller
         ]);
 
         Dosen::where('nidn', $nidn)->update($validated);
-        return redirect()->route('dosen')->with('edit', 'Data berhasil diubah');
+        return redirect()->route('dosen')->with('success', 'Data berhasil diubah');
     }
 
     /**

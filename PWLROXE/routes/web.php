@@ -5,6 +5,7 @@ use App\Http\Controllers\MatriksController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\KRSController;
+use App\Http\Controllers\MataKuliahController;
 
 Route::get('/', function () {
     return view('home');
@@ -52,3 +53,11 @@ Route::post('/matriks', [MatriksController::class, 'store' ])->name('matriksstor
 Route::get('/matriks/{id}/edit', [MatriksController::class, 'edit' ])->name('form-edit-matriks'); 
 Route::delete('/matriks/{id}', [MatriksController::class, 'destroy'])->name('matriks.destroy');
 Route::get('/show/{id}/detail-matriks',[MatriksController::class, 'show'])->name('detail-matriks');
+
+Route::get('/matkul', [MataKuliahController::class, 'index' ])->name('matkul'); 
+Route::get('/form-matkul', [MataKuliahController::class, 'create' ])->name('form-matkul'); 
+Route::put('/matkul/{id}', [MataKuliahController::class, 'update' ])->name('matkulupdate'); 
+Route::post('/matkul', [MataKuliahController::class, 'store' ])->name('matkulstore'); 
+Route::get('/matkul/{id}/edit', [MataKuliahController::class, 'edit' ])->name('form-edit-matkul'); 
+Route::delete('/matkul/{id}', [MataKuliahController::class, 'destroy'])->name('matkul.destroy');
+Route::get('/show/{id}/detail-matkul',[MataKuliahController::class, 'show'])->name('detail-matkul');

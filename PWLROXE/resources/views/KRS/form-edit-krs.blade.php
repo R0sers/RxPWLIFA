@@ -10,16 +10,9 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label class="form-label">ID</label>
-                        <input type="text" class="form-control" name="id" value="{{ $dataKRS->id }}" readonly>
-                        @error('id')
-                            <div class="form-text text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">NPM</label>
-                        <input type="text" class="form-control" name="nidn" value="{{ $dataKRS->npm }}" readonly>
-                        @error('nidn')
+                        <input type="text" class="form-control" name="npm" value="{{ $dataKRS->npm }}" readonly>
+                        @error('npm')
                             <div class="form-text text-danger">{{ $message }}</div>
                         @enderror
                     </div>

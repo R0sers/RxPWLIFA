@@ -6,6 +6,7 @@
         <div class="card">
             <div class="card-header">Detail KRS</div>
             <div class="card-body">
+                <p>ID: {{ $dataKRS->id }}</p>
                 <p>NPM: {{ $dataKRS->npm }}</p>
                 <p>Kode Matakuliah: {{ $dataKRS->kode_matakuliah }}</p>
             </div>

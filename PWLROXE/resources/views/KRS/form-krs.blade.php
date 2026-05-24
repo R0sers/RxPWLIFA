@@ -9,6 +9,13 @@
                 <form method="POST" action="{{ route('krsstore') }}">
                     @csrf
                     <div class="mb-3">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" name="id">
+                        @error('id')
+                            <div class="form-text text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">NPM</label>
                         <input type="text" class="form-control" name="npm">
                         @error('npm')
@@ -16,16 +23,9 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">NIDN</label>
-                        <input type="text" class="form-control" name="nidn">
-                        @error('nidn')
-                            <div class="form-text text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nama Mahasiswa</label>
-                        <input type="text" class="form-control" name="nama">
-                        @error('nama')
+                        <label class="form-label">Kode Matkul</label>
+                        <input type="text" class="form-control" name="kode_matakuliah">
+                        @error('kode_matakuliah')
                             <div class="form-text text-danger">{{ $message }}</div>
                         @enderror
                     </div>

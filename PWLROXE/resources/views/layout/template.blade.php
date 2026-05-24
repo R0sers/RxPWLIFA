@@ -25,6 +25,11 @@
 
 
     </style>
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" ...>
+    
+    <!-- Tambahkan ini ↓ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   </head>
   
@@ -45,6 +50,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{url('/dosen')}}">Dosen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url('/matkul')}}">Mata Kuliah</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{url('/krs')}}">KRS</a>

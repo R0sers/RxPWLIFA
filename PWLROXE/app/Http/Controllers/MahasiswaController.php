@@ -15,6 +15,18 @@ class MahasiswaController extends Controller
     {
 
         $dataMahasiswa = Mahasiswa::all();
+        $dataMahasiswa = Mahasiswa::with(['dosen'])
+        ->when(request('search'), function ($query, $search) {
+            return $query->where('npm', 'like', "%{$search}%")
+                        ->orWhere('nama', 'like', "%{$search}%")
+
+            ->orWhereHas('dosen', function ($q2) use ($search) {
+            $q2->where('nidn', 'like', "%{$search}%");
+                        });
+        })
+        ->orderBy('npm', 'asc')
+        ->paginate(5)
+        ->withQueryString();
 
         return view('mahasiswa.mahasiswa', compact('dataMahasiswa'));
     }
@@ -39,7 +51,7 @@ class MahasiswaController extends Controller
         ]);
         // $validated['nidn'] = 1;
         Mahasiswa::create($validated);
-        return redirect()->route('mahasiswa')->with('add', 'Data berhasil ditambah');
+        return redirect()->route('mahasiswa')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -77,7 +89,7 @@ class MahasiswaController extends Controller
         ]);
 
         Mahasiswa::where('npm', $npm)->update($validated);
-        return redirect()->route('mahasiswa')->with('edit', 'Data berhasil diubah');
+        return redirect()->route('mahasiswa')->with('success', 'Data berhasil diubah');
     }
 
     /**

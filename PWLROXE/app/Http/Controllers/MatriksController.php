@@ -13,7 +13,21 @@ class MatriksController extends Controller
      */
     public function index()
     {
-        $dataJadwal = Jadwal::all();
+       
+        $search = request('search');
+
+        $dataJadwal = Jadwal::when($search, function ($query, $search) {
+            return $query->where('kode_matakuliah', 'like', "%{$search}%")
+                         ->orWhereHas('dosen', function ($query) use ($search) {
+                             $query->where('nidn', 'like', "%{$search}%");
+                         })
+                         ->orWhereHas('KRS', function ($query) use ($search) {
+                             $query->where('npm', 'like', "%{$search}%");
+                         })
+                         ->orWhere('hari', 'like', "%{$search}%");
+        })
+        ->paginate(10)
+        ->withQueryString();
 
         return view('matriks.matriks', compact('dataJadwal'));
     }
@@ -39,7 +53,7 @@ class MatriksController extends Controller
             'hari' => 'required',
         ]);
         Jadwal::create($validated);
-        return redirect()->route('matriks')->with('add', 'Data berhasil ditambah');
+        return redirect()->route('matriks')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -81,7 +95,7 @@ class MatriksController extends Controller
         $dataJadwal = Jadwal::where('id', $id)->firstOrFail();
         $dataJadwal->update($validated);
 
-        return redirect()->route('matriks')->with('edit', 'Data berhasil diubah');
+        return redirect()->route('matriks')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -92,6 +106,6 @@ class MatriksController extends Controller
         Jadwal::where('id', $id)->delete();
 
         return redirect()->route('matriks')
-                ->with('delete', 'Data berhasil dihapus');
+                ->with('success', 'Data berhasil dihapus');
     }
 }

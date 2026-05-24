@@ -1,18 +1,29 @@
 @extends('layout.template')
 
 @section('content')
+
 <div class="container mt-4">
 
     <h2 class="mb-3">Data Dosen</h2>
 
-    <div class="card">
-        <div class="card-body">
+     @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <div class="card p-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <a href="{{ route('form-dosen') }}" class="btn btn-primary btn-sm">Tambah Data</a>
 
-            <p>
-                halaman ini menampilkan data dosen yang ada di database, dengan fitur tambah, edit, dan hapus data dosen
-            </p>
+                <form class="d-flex align-items-center gap-2">
+                    <div class="input-group input-group-sm" width="250px">
+                        <input name="search" type="text" class="form-control" placeholder="Cari data">
+                        <button class="btn btn-sm btn-success" type="submit">Cari</button>
+                    </div>
+                </form>
 
-            <a href="{{ route('form-dosen') }}" class="btn btn-primary mb-3">Tambah Data</a>
+            </div>
 
             <table class="table table-bordered">
                 <thead class="table-light">
@@ -36,7 +47,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
                             </form>
-                            <a href="{{ route('form-edit-dosen', $dosen->nidn) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('form-edit-dosen', $dosen->nidn) }}" class="btn btn-warning btn-sm"> <i class="bi bi-pencil"></i>Edit</a>
                             <a href="{{ route('detail-dosen', ['id' => $dosen->nidn]) }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-eye"></i>
                                 Detail
@@ -46,7 +57,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+         {{ $dataDosen->links() }}
         </div>
     </div>
 </div>

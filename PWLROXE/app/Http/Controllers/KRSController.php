@@ -13,7 +13,16 @@ class KRSController extends Controller
      */
     public function index()
     {
-        $dataKRS = KRS::all();
+        $dataKRS = KRS::when(request('search'), function ($query, $search) {
+            return $query->where('id', 'like', "%{$search}%")
+                        ->orWhere('npm', 'like', "%{$search}%")
+            ->orWhereHas('MataKuliah', function ($q2) use ($search) {
+            $q2->where('kode_matakuliah', 'like', "%{$search}%");
+                        });
+        })
+        ->orderBy('id', 'asc')
+        ->paginate(15)
+        ->withQueryString();
 
         return view('krs.krs', compact('dataKRS'));
     }
@@ -29,29 +38,23 @@ class KRSController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-              // dd($request->nidn);
-        $validated = $request->validate([
-            'id' => 'required|numeric|unique:krs',
-            'nidn' => 'required|numeric',
-            'nama' => 'required',
-        ]);
-        // $validated['nidn'] = 1;
-        KRS::create($validated);
-        return redirect()->route('krs')->with('add', 'Data berhasil ditambah');
-    }
+            public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'npm'  => 'required|numeric',  
+                'nama' => 'required',
+            ]);
+
+            KRS::create($validated);
+            return redirect()->route('krs')->with('success', 'Data berhasil ditambah');
+        }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-                   //query db builder
-        //$detailBuku = DB::table('buku')->where('id', $id)->firstOrFail();
-
-        //orm
-        // $detailBuku = Buku::find($id);
+    
         $dataKRS = KRS::findOrFail($id);        
 
         return view('krs.detail-krs', compact('dataKRS'));
@@ -72,23 +75,24 @@ class KRSController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nidn' => 'required|numeric',
+            "id" => "required|numeric|unique:krs,id," . $id,
+            'npm'  => 'required|numeric',
             'nama' => 'required',
         ]);
 
         KRS::where('id', $id)->update($validated);
-        return redirect()->route('krs')->with('edit', 'Data berhasil diubah');
+        return redirect()->route('krs')->with('success', 'Data berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $nidn)
+    public function destroy(string $id)
     {
-        KRS::where('nidn', $nidn)->delete();
+        KRS::where('id', $id)->delete();
 
         return redirect()->route('krs')
-                ->with('delete', 'Data berhasil dihapus');
+                ->with('success', 'Data berhasil dihapus');
     }
 
 }
